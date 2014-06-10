@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="lexApp">
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/angular.js"></script>
+    <script src="/javascripts/angular-resource.js"></script>
+    <script src="/javascripts/angular-route.js"></script>
+    <script src="/javascripts/controllers.js"></script>
+    <script src="/javascripts/app.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="container" ng-view></div>
+  </body>
+</html>
