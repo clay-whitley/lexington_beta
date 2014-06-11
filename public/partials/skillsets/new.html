@@ -1,4 +1,7 @@
+<h1>Create Skillset</h1>
+
 <form novalidate>
-  <input type="text" ng-model="skillset.name">
+  <label for="skillsetName">Skillset name:</label>
+  <input name="skillsetName" type="text" ng-model="skillset.name">
   <button ng-click="create(skillset)">Save</button>
 </form>

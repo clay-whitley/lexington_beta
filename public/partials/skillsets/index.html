@@ -1,5 +1,8 @@
+<h1>Skillsets Index</h1>
+
 <div ng-repeat="skillset in skillsets">
-  {{skillset}}
+  <a href="#skillsets/{{skillset._id}}">{{skillset.name}}</a>
+  <a href="#" ng-click="delete(skillset)">Delete</a>
 </div>
 
 <a href="#skillsets/new">New skillset</a>

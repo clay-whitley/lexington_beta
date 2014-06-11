@@ -40,6 +40,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.layout);
 
 app.get('/skillsets.json', routes.skillsets.index);
+app.post('/skillsets.json', routes.skillsets.create);
+app.get('/skillsets/:id.json', routes.skillsets.show);
+app.put('/skillsets/:id.json', routes.skillsets.update);
+app.delete('/skillsets/:id.json', routes.skillsets.delete);
 
 
 http.createServer(app).listen(app.get('port'), function(){

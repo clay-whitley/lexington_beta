@@ -2,14 +2,18 @@ var lexControllers = angular.module('lexControllers', []);
 
 lexControllers.controller('SkillsetIndexCtrl', ['$scope', 'Skillset', function($scope, Skillset){
   $scope.skillsets = Skillset.query();
+
+  $scope.delete = function(doc){
+    Skillset.delete({skillsetId: doc._id});
+  };
 }]);
 
-lexControllers.controller('SkillsetShowCtrl', ['$scope', '$routeParams', function($scope, $routeParams){
-  $scope.skillset = $routeParams.skillsetId;
+lexControllers.controller('SkillsetShowCtrl', ['$scope', '$routeParams', 'Skillset', function($scope, $routeParams, Skillset){
+  $scope.skillset = Skillset.get({skillsetId: $routeParams.skillsetId});
 }]);
 
-lexControllers.controller('SkillsetNewCtrl', ['$scope', function($scope){
+lexControllers.controller('SkillsetNewCtrl', ['$scope', 'Skillset', function($scope, Skillset){
   $scope.create = function(skillset){
-    console.log(skillset);
+    Skillset.save({}, skillset);
   };
 }]);
