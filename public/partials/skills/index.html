@@ -1,3 +1,4 @@
 <div ng-repeat="skill in skills">
-  {{skill.name}}
+  {{skill.name}}: {{skill.exp}}
+  <button ng-click="increment(skill)">+</button><button ng-click="decrement(skill)">-</button>
 </div>

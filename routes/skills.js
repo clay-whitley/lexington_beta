@@ -28,7 +28,18 @@ exports.show = function(req, res){
 };
 
 exports.update = function(req, res){
+  if (req.body.updateType == "exp"){
+    var newEvent = new models.event({skill_id: req.body._id});
+    newEvent.save();
+    delete req.body.updateType;
+  }
 
+  delete req.body._id;
+
+  models.skill.findByIdAndUpdate(req.params.id, req.body, function(err, data){
+    if (err) return console.error(err);
+    res.json(data);
+  });
 };
 
 exports.delete = function(req, res){

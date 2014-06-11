@@ -40,4 +40,15 @@ lexControllers.controller('SkillNewCtrl', ['$rootScope', '$scope', '$routeParams
 
 lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$scope', '$routeParams', 'Skillset', 'Skill', function($rootScope, $scope, $routeParams, Skillset, Skill){
   $rootScope.skills = Skill.query({skillsetId: $routeParams.skillsetId});
+
+  $scope.increment = function(skill){
+    skill.exp++;
+    skill.updateType = "exp";
+    Skill.update({skillId: skill._id}, skill);
+  };
+  $scope.decrement = function(skill){
+    skill.exp--;
+    skill.updateType = "exp";
+    Skill.update({skillId: skill._id}, skill);
+  };
 }]);
