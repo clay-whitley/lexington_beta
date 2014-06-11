@@ -8,6 +8,15 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
+var mongoose = require('mongoose');
+mongoose.connect(process.env.DOMAIN || 'mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to Mongo');
+});
+
+
 var app = express();
 
 // all environments
@@ -29,6 +38,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.layout);
+
+app.get('/skillsets.json', routes.skillsets.index);
 
 
 http.createServer(app).listen(app.get('port'), function(){
