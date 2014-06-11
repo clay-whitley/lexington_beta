@@ -23,7 +23,9 @@ exports.show = function(req, res){
 };
 
 exports.update = function(req, res){
-
+  models.skillset.findByIdAndUpdate(req.params.id, {name: req.body.name}, function(doc){
+    res.json(doc);
+  });
 };
 
 exports.delete = function(req, res){

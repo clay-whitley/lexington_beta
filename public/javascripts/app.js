@@ -11,6 +11,9 @@ lexApp.config(['$routeProvider', function($routeProvider){
   }).when('/skillsets/new', {
     templateUrl: 'partials/skillsets/new.html',
     controller: 'SkillsetNewCtrl'
+  }).when('/skillsets/:skillsetId/edit', {
+    templateUrl: 'partials/skillsets/edit.html',
+    controller: 'SkillsetEditCtrl'
   }).when('/skillsets/:skillsetId', {
     templateUrl: 'partials/skillsets/show.html',
     controller: 'SkillsetShowCtrl'

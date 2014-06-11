@@ -3,6 +3,7 @@
 <div ng-repeat="skillset in skillsets">
   <a href="#skillsets/{{skillset._id}}">{{skillset.name}}</a>
   <a href="#" ng-click="delete(skillset)">Delete</a>
+  <a href="#skillsets/{{skillset._id}}/edit">Edit</a>
 </div>
 
 <a href="#skillsets/new">New skillset</a>
