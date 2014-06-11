@@ -45,6 +45,12 @@ app.get('/skillsets/:id.json', routes.skillsets.show);
 app.put('/skillsets/:id.json', routes.skillsets.update);
 app.delete('/skillsets/:id.json', routes.skillsets.delete);
 
+app.get('/skills.json', routes.skills.index);
+app.post('/skills.json', routes.skills.create);
+app.get('/skills/:id.json', routes.skills.show);
+app.put('/skills/:id.json', routes.skills.update);
+app.delete('/skills/:id.json', routes.skills.delete);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

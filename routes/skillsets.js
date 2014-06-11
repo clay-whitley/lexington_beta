@@ -29,7 +29,6 @@ exports.update = function(req, res){
 };
 
 exports.delete = function(req, res){
-  console.log(req.params.id);
   models.skillset.findByIdAndRemove(req.params.id, function(doc){
     res.json(doc);
   });

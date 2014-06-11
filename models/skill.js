@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 var skillSchema = mongoose.Schema({
-    name: String
+    name: String,
+    exp: {type: Number, default: 0}
 });
 
 var Skill = mongoose.model('Skill', skillSchema);

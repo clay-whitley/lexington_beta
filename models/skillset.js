@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 var skillsetSchema = mongoose.Schema({
-    name: String
+    name: String,
+    skills: {type: Array, default: []}
 });
 
 var Skillset = mongoose.model('Skillset', skillsetSchema);
