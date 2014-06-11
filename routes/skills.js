@@ -29,7 +29,7 @@ exports.show = function(req, res){
 
 exports.update = function(req, res){
   if (req.body.updateType == "exp"){
-    var newEvent = new models.event({skill_id: req.body._id});
+    var newEvent = new models.event({skill_id: req.body._id, current_exp: req.body.exp, current_level: req.body.level});
     newEvent.save();
     delete req.body.updateType;
   }
