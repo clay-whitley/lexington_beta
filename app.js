@@ -16,6 +16,7 @@ db.once('open', function () {
   console.log('Connected to Mongo');
 });
 
+var sass = require('node-sass');
 
 var app = express();
 
@@ -30,6 +31,13 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
+app.use(
+     sass.middleware({
+         src: __dirname + '/sass',
+         dest: __dirname + '/public',
+         debug: true
+     })
+ );
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
