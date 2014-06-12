@@ -46,6 +46,7 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$scope', '$routePara
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;
+      skill.percentage = val.percentage;
     });
   };
   $scope.decrement = function(skill){
@@ -53,6 +54,7 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$scope', '$routePara
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;
+      skill.percentage = val.percentage;
     });
   };
 }]);

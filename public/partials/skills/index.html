@@ -1,5 +1,25 @@
-<div ng-repeat="skill in skills">
-  {{skill.name}}: {{skill.level}}
-  <button ng-click="increment(skill)">+</button><button ng-click="decrement(skill)">-</button>
-  {{skill.exp}}
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <td>Skill name</td>
+      <td>Level</td>
+      <td>Exp</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="skill in skills">
+      <td>{{skill.name}}</td>
+      <td>{{skill.level}}</td>
+      <td>{{skill.exp}}</td>
+      <td>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{skill.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.percentage}}%;">
+            {{skill.percentage}}%
+          </div>
+        </div>
+      </td>
+      <td><button ng-click="increment(skill)">+</button></td>
+      <td><button ng-click="decrement(skill)">-</button></td>
+    </tr>
+  </tbody>
+</table>

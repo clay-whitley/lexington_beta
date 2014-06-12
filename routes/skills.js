@@ -44,7 +44,7 @@ exports.update = function(req, res){
     eventType = "level";
   }
 
-  req.body.percentage = ((req.body.exp - expTable[req.body.level]) / (expTable[req.body.level + 1] - expTable[req.body.level])) * 100;
+  req.body.percentage = Math.floor(((req.body.exp - expTable[req.body.level]) / (expTable[req.body.level + 1] - expTable[req.body.level])) * 100);
 
   if (req.body.updateType == "exp"){
     var newEvent = new models.event({skill_id: req.body._id, current_exp: req.body.exp, current_level: req.body.level, type: eventType});
