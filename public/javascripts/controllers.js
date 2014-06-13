@@ -68,7 +68,7 @@ lexControllers.controller('ReportShowCtrl', ['$scope', '$routeParams', 'Report',
 
   $('.datepicker').datepicker()
     .on("changeDate", function(e){
-      $scope.report[e.target.id] = e.timeStamp;
+      $scope.report[e.target.id] = Date.parse(e.date);
     });
 
   $scope.runReport = function(report){
