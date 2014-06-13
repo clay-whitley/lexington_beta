@@ -59,6 +59,8 @@ app.get('/skills/:id.json', routes.skills.show);
 app.put('/skills/:id.json', routes.skills.update);
 app.delete('/skills/:id.json', routes.skills.delete);
 
+app.get('/reports.json', routes.reports.show);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

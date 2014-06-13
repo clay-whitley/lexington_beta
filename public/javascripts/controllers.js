@@ -58,3 +58,27 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$scope', '$routePara
     });
   };
 }]);
+
+lexControllers.controller('ReportShowCtrl', ['$scope', '$routeParams', 'Report', function($scope, $routeParams, Report){
+  $scope.myData = [
+  {timestamp: "20111001", exp: 5, skill_id: "foo"},
+  {timestamp: "20111003", exp: 10, skill_id: "foo"},
+  {timestamp: "20111005", exp: 15, skill_id: "foo"},
+  {timestamp: "20111009", exp: 25, skill_id: "foo"},
+  {timestamp: "20111011", exp: 25, skill_id: "foo"},
+  {timestamp: "20111101", exp: 50, skill_id: "foo"},
+  {timestamp: "20111111", exp: 25, skill_id: "foo"},
+  {timestamp: "20111121", exp: 50, skill_id: "foo"},
+  {timestamp: "20111001", exp: 5, skill_id: "bar"},
+  {timestamp: "20111003", exp: 5, skill_id: "bar"},
+  {timestamp: "20111005", exp: 15, skill_id: "bar"},
+  {timestamp: "20111009", exp: 25, skill_id: "bar"},
+  {timestamp: "20111011", exp: 30, skill_id: "bar"},
+  {timestamp: "20111101", exp: 31, skill_id: "bar"},
+  {timestamp: "20111111", exp: 45, skill_id: "bar"},
+  {timestamp: "20111121", exp: 50, skill_id: "bar"},
+  {timestamp: "20111001", exp: 45, skill_id: "baz"},
+  {timestamp: "20111003", exp: 40, skill_id: "baz"},
+  {timestamp: "20111005", exp: 30, skill_id: "baz"},
+  ];
+}]);

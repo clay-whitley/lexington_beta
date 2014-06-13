@@ -1,7 +1,9 @@
 var lexApp = angular.module('lexApp', [
   'ngRoute',
   'lexControllers',
-  'lexServices'
+  'lexServices',
+  'd3',
+  'lexDirectives'
   ]);
 
 lexApp.config(['$routeProvider', function($routeProvider){
@@ -17,6 +19,9 @@ lexApp.config(['$routeProvider', function($routeProvider){
   }).when('/skillsets/:skillsetId', {
     templateUrl: 'partials/skillsets/show.html',
     controller: 'SkillsetShowCtrl'
+  }).when('/reports', {
+    templateUrl: 'partials/reports/show.html',
+    controller: 'ReportShowCtrl'
   }).otherwise({
     redirectTo: '/skillsets'
   });
