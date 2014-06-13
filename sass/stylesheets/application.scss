@@ -1,7 +1,8 @@
 @import "bootstrap";
+@import "datepicker";
 
 body {
-  padding-top: 50px;
+  padding-top: 57px;
 }
 
 .axis path,
@@ -20,3 +21,13 @@ body {
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
+.slide.ng-enter, .slide.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.slide.ng-enter { }        /* starting animations for enter */
+.slide.ng-enter-active { } /* terminal animations for enter */
+.slide.ng-leave { }        /* starting animations for leave */
+.slide.ng-leave-active { } /* terminal animations for leave */

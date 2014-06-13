@@ -1,3 +1,37 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form ng-hide="hasRan" name="reportConfig" class="form-horizontal" role="form" novalidate ng-submit="runReport(report)">
+      <div class="form-group">
+        <label for="reportSkillset" class="control-label col-xs-1">Skillset</label>
+        <div class="col-xs-2">
+          <select class="form-control" name="reportSkillset" ng-model="report.skillsetId">
+            <option ng-repeat="skillset in skillsets" value="{{skillset._id}}">{{skillset.name}}</option>
+          </select>
+        </div>
+        <label for="reportRange" class="control-label col-xs-1">Range</label>
+        <div class="col-xs-2">
+          <select class="form-control" ng-change="customRange(report.range)" name="reportRange" ng-model="report.range">
+            <option value="allTime">All time</option>
+            <option value="7Days">Last 7 Days</option>
+            <option value="30Days">Last 30 Days</option>
+            <option value="customRange">Custom Daterange</option>
+          </select>
+        </div>
+        
+        <div ng-hide="!hasCustomRange" class="col-xs-5">
+          <div class="input-daterange input-group" id="datepicker">
+            <input data-date-format="mm/dd/yyyy" data-provide="datepicker" ng-model="report.startTime" class="input-sm form-control datepicker" id="startTime" value="01/10/2014" />
+            <span class="input-group-addon">to</span>
+            <input data-date-format="mm/dd/yyyy" data-provide="datepicker" ng-model="report.endTime" type="text" class="input-sm form-control datepicker" id="endTime" value="04/10/2014" />
+          </div>
+        </div>
+        <input class="btn btn-default" type="submit" value="Run">
+      </div>
+    </form>
+    <button ng-hide="!hasRan" class="btn btn-default" ng-click="configReport()">Configure</button>
+  </div>
+</div>
+
 <d3-line-chart data="realData">
 
 </d3-line-chart>
