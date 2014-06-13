@@ -9,7 +9,7 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
       link: function(scope, element, attrs) {
         d3Service.d3().then(function(d3) {
           var margin = parseInt(attrs.margin) || 40;
-          var parseDate = d3.time.format("%Y%m%d").parse;
+          var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S.%L%Z").parse;
 
           var svg = d3.select(element[0])
             .append('svg')
@@ -18,9 +18,7 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
             .append("g")
             .attr("transform", "translate(" + margin + "," + margin + ")");
 
-          scope.data.forEach(function(d) {
-            d.timestamp = parseDate(d.timestamp);
-          });
+          
 
           // Browser onresize event
           window.onresize = function() {
@@ -34,6 +32,10 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
             scope.render(scope.data);
           });
 
+          scope.$watch('data', function(newVals, oldVals) {
+            return scope.render(newVals);
+          }, true);
+
           scope.render = function(data) {
             console.log('rendering D3');
             // our custom d3 code
@@ -42,6 +44,12 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
 
             // If we don't pass any data, return out of the element
             if (!data) return;
+
+            scope.data.forEach(function(d) {
+              if (typeof d.timestamp == "string"){
+                d.timestamp = parseDate(d.timestamp.substring(0, d.timestamp.length-1)+"+0000");
+              }
+            });
 
             var width = d3.select(element[0])[0][0].offsetWidth - (margin * 2),
                 height = 500 - (margin * 2);
@@ -71,7 +79,7 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
             var line = d3.svg.line()
                 .interpolate("linear")
                 .x(function(d) { return x(d.timestamp); })
-                .y(function(d) { return y(d.exp); });
+                .y(function(d) { return y(d.current_exp); });
 
             svg.append("g")
                 .attr("class", "x axis")
@@ -107,11 +115,12 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
 
               var circlesAttributes = circles
                 .attr("cx", function(d){ return x(d.timestamp);})
-                .attr("cy", function(d){ return y(d.exp);})
+                .attr("cy", function(d){ return y(d.current_exp);})
                 .attr("r", 5)
                 .attr("fill", "white")
                 .style("stroke", function(d){ return color(nestedSkill.key); });
             });
+
 
           };
         });

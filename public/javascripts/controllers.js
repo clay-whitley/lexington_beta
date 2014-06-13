@@ -81,4 +81,8 @@ lexControllers.controller('ReportShowCtrl', ['$scope', '$routeParams', 'Report',
   {timestamp: "20111003", exp: 40, skill_id: "baz"},
   {timestamp: "20111005", exp: 30, skill_id: "baz"},
   ];
+
+  $scope.realData = Report.query({skillsetId: "539ab76562ab9bdd16bcff68"}, function(val, headers){
+    
+  });
 }]);
