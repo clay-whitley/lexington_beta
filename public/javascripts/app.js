@@ -7,7 +7,13 @@ var lexApp = angular.module('lexApp', [
   ]);
 
 lexApp.config(['$routeProvider', function($routeProvider){
-  $routeProvider.when('/skillsets', {
+  $routeProvider.when('/login', {
+    templateUrl: 'partials/sessions/new.html',
+    controller: 'SessionNewCtrl'
+  }).when('/users/new', {
+    templateUrl: 'partials/users/new.html',
+    controller: 'UserNewCtrl'
+  }).when('/skillsets', {
     templateUrl: 'partials/skillsets/index.html',
     controller: 'SkillsetIndexCtrl'
   }).when('/skillsets/new', {
@@ -23,6 +29,6 @@ lexApp.config(['$routeProvider', function($routeProvider){
     templateUrl: 'partials/reports/show.html',
     controller: 'ReportShowCtrl'
   }).otherwise({
-    redirectTo: '/skillsets'
+    redirectTo: '/login'
   });
 }]);

@@ -1,7 +1,31 @@
 var lexControllers = angular.module('lexControllers', []);
 
-lexControllers.controller('SkillsetIndexCtrl', ['$scope', 'Skillset', '$location', function($scope, Skillset, $location){
+lexControllers.controller('SessionNewCtrl', ['$scope', '$rootScope', '$location', 'Session', function($scope, $rootScope, $location, Session){
+  $scope.user = {};
+
+  $scope.login = function(user){
+    Session.save({}, user, function(val, headers){
+      console.log(val);
+      $rootScope.current_user = val.current_user;
+    });
+  };
+}]);
+
+lexControllers.controller('UserNewCtrl', ['$scope', '$rootScope', '$location', 'User', 'Session', function($scope, $rootScope, $location, User, Session){
+  $scope.user = {};
+
+  $scope.create = function(user){
+    User.save({}, user, function(val, headers){
+      console.log(val);
+      $rootScope.current_user = val._id;
+    });
+  };
+}]);
+
+lexControllers.controller('SkillsetIndexCtrl', ['$scope', '$rootScope', 'Skillset', '$location', function($scope, $rootScope, Skillset, $location){
   $scope.skillsets = Skillset.query();
+
+  console.log($rootScope.current_user);
 
   $scope.delete = function(doc){
     Skillset.delete({skillsetId: doc._id});

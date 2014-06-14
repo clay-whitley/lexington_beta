@@ -13,6 +13,7 @@ exports.create = function(req, res){
       var newUser = new models.user(req.body);
       newUser.save(function(err2, data){
         if (err2) return console.error(err2);
+        req.session.current_user = data._id;
         res.json(data);
       });
     });

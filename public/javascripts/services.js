@@ -1,5 +1,19 @@
 var lexServices = angular.module('lexServices', ['ngResource']);
 
+lexServices.factory('Session', ['$resource',
+  function($resource){
+    return $resource('sessions.json', {}, {
+      update: {method:'PUT'}
+    });
+  }]);
+
+lexServices.factory('User', ['$resource',
+  function($resource){
+    return $resource('users/:userId.json', {}, {
+      update: {method:'PUT'}
+    });
+  }]);
+
 lexServices.factory('Skillset', ['$resource',
   function($resource){
     return $resource('skillsets/:skillsetId.json', {}, {
