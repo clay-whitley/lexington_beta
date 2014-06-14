@@ -1,5 +1,6 @@
 var lexApp = angular.module('lexApp', [
   'ngRoute',
+  'ngCookies',
   'lexControllers',
   'lexServices',
   'd3',
