@@ -22,7 +22,7 @@ exports.show = function(req, res){
     if (err) return console.error(err);
     queryParams.skill_id = {$in:data.skills};
     console.log("Report query recieved:", queryParams);
-    models.event.find(queryParams, function(err2, data2){
+    models.event.find(queryParams).sort('timestamp').exec(function(err2, data2){
       if (err2) return console.error(err2);
       res.json(data2);
     });
