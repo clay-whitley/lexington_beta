@@ -61,6 +61,12 @@ app.delete('/skills/:id.json', routes.skills.delete);
 
 app.get('/reports.json', routes.reports.show);
 
+app.post('/sessions.json', routes.sessions.create);
+app.delete('/sessions.json', routes.sessions.delete);
+
+app.post('/users.json', routes.users.create);
+app.put('/users/:id.json', routes.users.update);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
