@@ -2,7 +2,7 @@ var lexControllers = angular.module('lexControllers', []);
 
 function ensureAuth(location, scope){
   if (!scope.current_user){
-    location.path('#login');
+    return location.path('#login');
   }
 }
 
