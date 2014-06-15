@@ -1,4 +1,6 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+  bcrypt = require('bcrypt');
+
 mongoose.connect(process.env.MONGODOMAIN || 'mongodb://localhost/test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -10,15 +12,26 @@ var models = require('./models');
 
 var currentTime = new Date();
 
-var running = new models.skill({name: "Running", exp: 18, level: 1, percentage: 53}),
-  pushups = new models.skill({name: "Pushups", exp: 31, level: 2, percentage: 30}),
-  hiking = new models.skill({name: "Hiking", exp: 28, level: 2, percentage: 15}),
-  physicalSkillset = new models.skillset({name: "Physical Skillset", skills: [running._id, pushups._id, hiking._id]});
+var newUser = new models.user({name: "Test User", email: "test@test.com"});
 
-var meditation = new models.skill({name: "Meditation", exp: 29, level: 2, percentage: 20}),
-  coding = new models.skill({name: "Coding", exp: 46, level: 3, percentage: 4}),
-  breathing = new models.skill({name: "Cleansing Breath", exp: 23, level: 1, percentage: 86}),
-  mentalSkillset = new models.skillset({name: "Mental Skillset", skills: [meditation._id, coding._id, breathing._id]});
+bcrypt.genSalt(10, function(err, salt) {
+  bcrypt.hash("password", salt, function(err, hash) {
+    if (err) return console.error(err);
+    newUser.password_digest = hash;
+
+    newUser.save();
+  });
+});
+
+var running = new models.skill({name: "Running", exp: 18, level: 1, percentage: 53, user_id: newUser._id}),
+  pushups = new models.skill({name: "Pushups", exp: 31, level: 2, percentage: 30, user_id: newUser._id}),
+  hiking = new models.skill({name: "Hiking", exp: 28, level: 2, percentage: 15, user_id: newUser._id}),
+  physicalSkillset = new models.skillset({name: "Physical Skillset", user_id: newUser._id, skills: [running._id, pushups._id, hiking._id]});
+
+var meditation = new models.skill({name: "Meditation", exp: 29, level: 2, percentage: 20, user_id: newUser._id}),
+  coding = new models.skill({name: "Coding", exp: 46, level: 3, percentage: 4, user_id: newUser._id}),
+  breathing = new models.skill({name: "Cleansing Breath", exp: 23, level: 1, percentage: 86, user_id: newUser._id}),
+  mentalSkillset = new models.skillset({name: "Mental Skillset", skills: [meditation._id, coding._id, breathing._id], user_id: newUser._id});
 
 var physicalEvents = [
   new models.event({skill_id: running._id, current_exp: 0, current_level: 0, timestamp: new Date(currentTime.setMonth(4)).setDate(1)}),
