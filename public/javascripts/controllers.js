@@ -2,7 +2,7 @@ var lexControllers = angular.module('lexControllers', []);
 
 function ensureAuth(location, scope){
   if (!scope.current_user){
-    return location.path('#login');
+    return location.url('login');
   }
 }
 
@@ -15,7 +15,7 @@ lexControllers.controller('HeaderCtrl', ['$scope', '$rootScope', '$location', '$
   $scope.logout = function(){
     Session.delete({}, function(val, headers){
       delete $rootScope.current_user;
-      $location.path('#login');
+      $location.url('login');
     });
   };
 }]);
@@ -28,7 +28,7 @@ lexControllers.controller('SessionNewCtrl', ['$scope', '$rootScope', '$location'
     Session.save({}, user, function(val, headers){
       if (val.loginSuccess){
         $rootScope.current_user = val.current_user;
-        $location.url('/skillsets');
+        $location.url('skillsets');
       } else {
         console.log("Incorrect", val.reason);
       }
@@ -43,7 +43,7 @@ lexControllers.controller('UserNewCtrl', ['$scope', '$rootScope', '$location', '
   $scope.create = function(user){
     User.save({}, user, function(val, headers){
       $rootScope.current_user = val._id;
-      $location.path('#skillsets');
+      $location.url('skillsets');
     });
   };
 }]);
@@ -56,6 +56,7 @@ lexControllers.controller('SkillsetIndexCtrl', ['$scope', '$rootScope', 'Skillse
   $scope.skillsets = Skillset.query();
 
   $scope.delete = function(doc){
+    $scope.skillsets.splice($scope.skillsets.indexOf(doc), 1);
     Skillset.delete({skillsetId: doc._id});
   };
 }]);
@@ -71,7 +72,7 @@ lexControllers.controller('SkillsetNewCtrl', ['$scope', 'Skillset', '$location',
 
   $scope.create = function(skillset){
     Skillset.save({}, skillset);
-    $location.path("#skillsets");
+    $location.url('skillsets');
   };
 }]);
 
@@ -81,7 +82,7 @@ lexControllers.controller('SkillsetEditCtrl', ['$scope', '$routeParams', 'Skills
   $scope.skillset = Skillset.get({skillsetId: $routeParams.skillsetId});
   $scope.update = function(doc){
     var updatedSkillset = Skillset.update({skillsetId: doc._id}, doc);
-    $location.path("#skillsets/"+doc._id);
+    $location.url("skillsets/"+doc._id);
   };
 }]);
 
