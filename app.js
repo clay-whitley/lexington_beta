@@ -20,6 +20,15 @@ var sass = require('node-sass');
 
 var app = express();
 
+// middleware
+
+function secure (req, res, next) {
+  if (!req.session.current_user) {
+    return res.send(403);
+  }
+  next();
+}
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -47,19 +56,25 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.layout);
 
-app.get('/skillsets.json', routes.skillsets.index);
-app.post('/skillsets.json', routes.skillsets.create);
-app.get('/skillsets/:id.json', routes.skillsets.show);
-app.put('/skillsets/:id.json', routes.skillsets.update);
-app.delete('/skillsets/:id.json', routes.skillsets.delete);
+app.get('/skillsets.json', secure, routes.skillsets.index);
+app.post('/skillsets.json', secure, routes.skillsets.create);
+app.get('/skillsets/:id.json', secure, routes.skillsets.show);
+app.put('/skillsets/:id.json', secure, routes.skillsets.update);
+app.delete('/skillsets/:id.json', secure, routes.skillsets.delete);
 
-app.get('/skills.json', routes.skills.index);
-app.post('/skills.json', routes.skills.create);
-app.get('/skills/:id.json', routes.skills.show);
-app.put('/skills/:id.json', routes.skills.update);
-app.delete('/skills/:id.json', routes.skills.delete);
+app.get('/skills.json', secure, routes.skills.index);
+app.post('/skills.json', secure, routes.skills.create);
+app.get('/skills/:id.json', secure, routes.skills.show);
+app.put('/skills/:id.json', secure, routes.skills.update);
+app.delete('/skills/:id.json', secure, routes.skills.delete);
 
-app.get('/reports.json', routes.reports.show);
+app.get('/reports.json', secure, routes.reports.show);
+
+app.post('/sessions.json', routes.sessions.create);
+app.delete('/sessions.json', routes.sessions.delete);
+
+app.post('/users.json', routes.users.create);
+app.put('/users/:id.json', secure, routes.users.update);
 
 
 http.createServer(app).listen(app.get('port'), function(){

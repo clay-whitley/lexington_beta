@@ -1,7 +1,7 @@
 var models = require('../models');
 
 exports.index = function(req, res){
-  models.skillset.find(function(err, data){
+  models.skillset.find({user_id: req.session.current_user},function(err, data){
     if (err) return console.error(err);
     res.json(data);
   });
@@ -9,6 +9,7 @@ exports.index = function(req, res){
 
 exports.create = function(req, res){
   var newSkillset = new models.skillset(req.body);
+  newSkillset.user_id = req.session.current_user;
   newSkillset.save(function(err, data){
     if (err) return console.error(err);
     res.json(data);

@@ -20,6 +20,7 @@ exports.index = function(req, res){
 
 exports.create = function(req, res){
   var newSkill = new models.skill({name: req.body.name});
+  newSkill.user_id = req.session.current_user;
   newSkill.save(function(err, skill){
     if (err) return console.error(err);
     models.skillset.findById(req.body.skillset_id, function(err2, data){
@@ -47,7 +48,7 @@ exports.update = function(req, res){
   req.body.percentage = Math.floor(((req.body.exp - expTable[req.body.level]) / (expTable[req.body.level + 1] - expTable[req.body.level])) * 100);
 
   if (req.body.updateType == "exp"){
-    var newEvent = new models.event({skill_id: req.body._id, current_exp: req.body.exp, current_level: req.body.level, type: eventType});
+    var newEvent = new models.event({skill_id: req.body._id, current_exp: req.body.exp, current_level: req.body.level, type: eventType, user_id: req.session.current_user});
     newEvent.save();
     delete req.body.updateType;
   }

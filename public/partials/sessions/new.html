@@ -1,0 +1,9 @@
+<h1>Login</h1>
+
+<form name="loginForm" novalidate ng-submit="login(user)">
+  <input name="userEmail" type="text" ng-model="user.email" placeholder="Email" class="form-control">
+  <input name="userPassword" type="password" ng-model="user.password" placeholder="Password" class="form-control">
+  <input type="submit" value="Login">
+</form>
+
+<a href="#users/new">Create new account</a>
