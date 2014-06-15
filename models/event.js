@@ -6,7 +6,9 @@ var eventSchema = mongoose.Schema({
     skill_id: {type: String},
     current_exp: {type: Number},
     current_level: {type: Number},
-    user_id: {type: String}
+    user_id: {type: String},
+    skill_type: {type: String, default: "action"},
+    time_spent: {type: Number}
 });
 
 var Event = mongoose.model('Event', eventSchema);
