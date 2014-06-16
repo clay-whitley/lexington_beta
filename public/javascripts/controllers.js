@@ -112,14 +112,15 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$location', '$scope'
   $rootScope.skills = Skill.query({skillsetId: $routeParams.skillsetId});
 
   $scope.increment = function(skill){
-    skill.exp++;
+    skill.exp = skill.exp + skill.exp_multi;
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;
       skill.percentage = val.percentage;
     });
   };
-  $scope.spendTime = function(skill){
+  $scope.spendTime = function(skill, time){
+    skill.exp = skill.exp + (skill.exp_multi * time);
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;
