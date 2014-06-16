@@ -65,6 +65,11 @@ lexControllers.controller('SkillsetShowCtrl', ['$scope', '$routeParams', 'Skills
   ensureAuth($location, $rootScope);
 
   $scope.skillset = Skillset.get({skillsetId: $routeParams.skillsetId});
+  $rootScope.newSkillVisible = false;
+
+  $scope.showNewSkillForm = function(){
+    $rootScope.newSkillVisible = true;
+  };
 }]);
 
 lexControllers.controller('SkillsetNewCtrl', ['$scope', 'Skillset', '$location', '$rootScope', function($scope, Skillset, $location, $rootScope){
@@ -89,14 +94,15 @@ lexControllers.controller('SkillsetEditCtrl', ['$scope', '$routeParams', 'Skills
 lexControllers.controller('SkillNewCtrl', ['$rootScope', '$scope', '$routeParams', '$location', 'Skillset', 'Skill', function($rootScope, $scope, $routeParams, $location, Skillset, Skill){
   ensureAuth($location, $rootScope);
 
+  $scope.skillDegrades = false;
+
   $scope.create = function(doc){
     ensureAuth($location, $rootScope);
-    $rootScope.skills.push(Skill.save({}, {
-      skillset_id: $routeParams.skillsetId,
-      name: doc.name
-    }));
+    doc.skillset_id = $routeParams.skillsetId;
+    $rootScope.skills.push(Skill.save({}, doc));
     $scope.newSkill.$setPristine();
     $scope.skill = {};
+    $rootScope.newSkillVisible = false;
   };
 }]);
 
@@ -106,15 +112,15 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$location', '$scope'
   $rootScope.skills = Skill.query({skillsetId: $routeParams.skillsetId});
 
   $scope.increment = function(skill){
-    skill.exp++;
+    skill.exp = skill.exp + skill.exp_multi;
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;
       skill.percentage = val.percentage;
     });
   };
-  $scope.decrement = function(skill){
-    skill.exp--;
+  $scope.spendTime = function(skill, time){
+    skill.exp = skill.exp + (skill.exp_multi * time);
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;

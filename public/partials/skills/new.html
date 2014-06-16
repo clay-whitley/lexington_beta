@@ -1,8 +1,44 @@
-<h1>Create Skill</h1>
-
-<form ng-controller="SkillNewCtrl" name="newSkill" novalidate ng-submit="create(skill)">
-  <label for="skillName">Skill name:</label>
-  <input name="skillName" type="text" ng-model="skill.name">
-  <input type="submit" value="Submit">
+<form ng-hide="!newSkillVisible" ng-controller="SkillNewCtrl" ng-hide="showNewSkill" name="newSkill" class="form-horizontal" role="form" novalidate ng-submit="create(skill)">
+  <h2>Create skill</h2>
+  <div class="form-group">
+    <div class="col-xs-3">
+      <input type="text" ng-model="skill.name" placeholder="Skill name" class="form-control"> 
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="optionsRadios" class="control-label col-xs-1">Experience gained</label>
+    <div class="col-xs-2">
+      <div class="radio">
+        <label>
+          <input ng-model="skill.skill_type" type="radio" name="optionsRadios" id="optionsRadios1" value="action" checked>
+          Per action
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input ng-model="skill.skill_type" type="radio" name="optionsRadios" id="optionsRadios2" value="time_spent">
+          Per time spent
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-3">
+      <input type="number" ng-model="skill.exp_multi" class="form-control" placeholder="Experience multiplier">  
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input ng-model="skillDegrades" type="checkbox" value="">
+        Skill will degrade after inactivity
+      </label>
+    </div>
+  </div>
+  <div ng-hide="!skillDegrades" class="form-group">
+    <div class="col-xs-3">
+      <input type="number" ng-model="skill.degr_multi" class="form-control" placeholder="Experience multiplier"> 
+    </div>
+  </div>
+  <input class="btn btn-default" type="submit" value="Create">
 </form>
-

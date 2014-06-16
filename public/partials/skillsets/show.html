@@ -2,4 +2,6 @@
 
 <div ng-controller="SkillIndexCtrl" ng-include src="'partials/skills/index.html'"></div>
 
+<button ng-hide="newSkillVisible" ng-click="showNewSkillForm()" class="btn btn-default">Add skill</button>
+
 <div ng-include src="'partials/skills/new.html'"></div>

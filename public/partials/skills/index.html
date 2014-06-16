@@ -4,6 +4,8 @@
       <td>Skill name</td>
       <td>Level</td>
       <td>Exp</td>
+      <td>Percentage</td>
+      <td>Record</td>
     </tr>
   </thead>
   <tbody>
@@ -18,8 +20,17 @@
           </div>
         </div>
       </td>
-      <td><button ng-click="increment(skill)">+</button></td>
-      <td><button ng-click="decrement(skill)">-</button></td>
+      <td ng-hide="skill.skill_type != 'action'"><button class="btn btn-success" ng-click="increment(skill)">Action complete</button></td>
+      <td ng-hide="skill.skill_type == 'action'">
+        <form class="form-horizontal" ng-submit="spendTime(skill, timeSpent)" novalidate>
+          <div class="form-group">
+            <div class="col-xs-3">
+              <input type="number" ng-model="timeSpent" class="form-control" placeholder="Hours">
+            </div>
+            <input type="submit" value="Submit" class="btn btn-success">
+          </div>
+        </form>
+      </td>
     </tr>
   </tbody>
 </table>

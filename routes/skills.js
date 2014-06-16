@@ -19,7 +19,7 @@ exports.index = function(req, res){
 };
 
 exports.create = function(req, res){
-  var newSkill = new models.skill({name: req.body.name});
+  var newSkill = new models.skill(req.body);
   newSkill.user_id = req.session.current_user;
   newSkill.save(function(err, skill){
     if (err) return console.error(err);
