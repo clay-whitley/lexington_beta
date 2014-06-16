@@ -51,7 +51,8 @@ lexControllers.controller('UserNewCtrl', ['$scope', '$rootScope', '$location', '
 lexControllers.controller('SkillsetIndexCtrl', ['$scope', '$rootScope', 'Skillset', '$location', function($scope, $rootScope, Skillset, $location){
   ensureAuth($location, $rootScope);
 
-  console.log($rootScope.current_user);
+  $('#reportsNav').removeClass('active');
+  $('#skillsetsNav').addClass('active');
 
   $scope.skillsets = Skillset.query();
 
@@ -63,6 +64,9 @@ lexControllers.controller('SkillsetIndexCtrl', ['$scope', '$rootScope', 'Skillse
 
 lexControllers.controller('SkillsetShowCtrl', ['$scope', '$routeParams', 'Skillset', '$location', '$rootScope', function($scope, $routeParams, Skillset, $location, $rootScope){
   ensureAuth($location, $rootScope);
+
+  $('#reportsNav').removeClass('active');
+  $('#skillsetsNav').addClass('active');
 
   $scope.skillset = Skillset.get({skillsetId: $routeParams.skillsetId});
   $rootScope.newSkillVisible = false;
@@ -132,6 +136,9 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$location', '$scope'
 
 lexControllers.controller('ReportShowCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Report', 'Skillset', function($scope, $rootScope, $location, $routeParams, Report, Skillset){
   ensureAuth($location, $rootScope);
+
+  $('#reportsNav').addClass('active');
+  $('#skillsetsNav').removeClass('active');
 
   $scope.hasRan = false;
   $scope.hasCustomRange = false;
