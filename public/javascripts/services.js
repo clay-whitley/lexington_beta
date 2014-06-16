@@ -30,7 +30,7 @@ lexServices.factory('Skill', ['$resource',
 
 lexServices.factory('Report', ['$resource',
   function($resource){
-    return $resource('reports.json', {}, {
+    return $resource('reports/exp.json', {}, {
       update: {method:'PUT'}
     });
   }]);

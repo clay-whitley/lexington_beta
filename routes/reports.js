@@ -1,6 +1,6 @@
 var models = require('../models');
 
-exports.show = function(req, res){
+exports.exp = function(req, res){
   var startTime, endTime, currentTime = new Date(), queryParams = {};
 
   if (req.query.range == "customRange"){
@@ -28,3 +28,7 @@ exports.show = function(req, res){
     });
   });
 };
+
+exports.frequency = function(req, res){
+  
+}

@@ -26,9 +26,12 @@ lexApp.config(['$routeProvider', function($routeProvider){
   }).when('/skillsets/:skillsetId', {
     templateUrl: 'partials/skillsets/show.html',
     controller: 'SkillsetShowCtrl'
-  }).when('/reports', {
-    templateUrl: 'partials/reports/show.html',
-    controller: 'ReportShowCtrl'
+  }).when('/reports/exp', {
+    templateUrl: 'partials/reports/exp.html',
+    controller: 'ReportExpCtrl'
+  }).when('/reports/frequency', {
+    templateUrl: 'partials/reports/frequency.html',
+    controller: 'ReportFreqCtrl'
   }).otherwise({
     redirectTo: '/login'
   });

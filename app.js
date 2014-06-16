@@ -68,7 +68,8 @@ app.get('/skills/:id.json', secure, routes.skills.show);
 app.put('/skills/:id.json', secure, routes.skills.update);
 app.delete('/skills/:id.json', secure, routes.skills.delete);
 
-app.get('/reports.json', secure, routes.reports.show);
+app.get('/reports/exp.json', secure, routes.reports.exp);
+app.get('/reports/frequency.json', secure, routes.reports.frequency);
 
 app.post('/sessions.json', routes.sessions.create);
 app.delete('/sessions.json', routes.sessions.delete);

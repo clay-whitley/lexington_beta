@@ -134,7 +134,7 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$location', '$scope'
   };
 }]);
 
-lexControllers.controller('ReportShowCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Report', 'Skillset', function($scope, $rootScope, $location, $routeParams, Report, Skillset){
+lexControllers.controller('ReportExpCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Report', 'Skillset', function($scope, $rootScope, $location, $routeParams, Report, Skillset){
   ensureAuth($location, $rootScope);
 
   $('#reportsNav').addClass('active');
