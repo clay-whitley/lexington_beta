@@ -119,8 +119,7 @@ lexControllers.controller('SkillIndexCtrl', ['$rootScope', '$location', '$scope'
       skill.percentage = val.percentage;
     });
   };
-  $scope.decrement = function(skill){
-    skill.exp--;
+  $scope.spendTime = function(skill){
     skill.updateType = "exp";
     Skill.update({skillId: skill._id}, skill, function(val, headers){
       skill.level = val.level;
