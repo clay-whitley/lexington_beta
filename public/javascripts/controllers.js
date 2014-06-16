@@ -65,6 +65,7 @@ lexControllers.controller('SkillsetShowCtrl', ['$scope', '$routeParams', 'Skills
   ensureAuth($location, $rootScope);
 
   $scope.skillset = Skillset.get({skillsetId: $routeParams.skillsetId});
+  $rootScope.newSkillVisible = true;
 }]);
 
 lexControllers.controller('SkillsetNewCtrl', ['$scope', 'Skillset', '$location', '$rootScope', function($scope, Skillset, $location, $rootScope){
@@ -88,6 +89,8 @@ lexControllers.controller('SkillsetEditCtrl', ['$scope', '$routeParams', 'Skills
 
 lexControllers.controller('SkillNewCtrl', ['$rootScope', '$scope', '$routeParams', '$location', 'Skillset', 'Skill', function($rootScope, $scope, $routeParams, $location, Skillset, Skill){
   ensureAuth($location, $rootScope);
+
+  $scope.skillDegrades = false;
 
   $scope.create = function(doc){
     ensureAuth($location, $rootScope);
