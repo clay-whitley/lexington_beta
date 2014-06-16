@@ -23,14 +23,14 @@ bcrypt.genSalt(10, function(err, salt) {
   });
 });
 
-var running = new models.skill({name: "Running", exp: 18, level: 1, percentage: 53, user_id: newUser._id}),
-  pushups = new models.skill({name: "Pushups", exp: 31, level: 2, percentage: 30, user_id: newUser._id}),
-  hiking = new models.skill({name: "Hiking", exp: 28, level: 2, percentage: 15, user_id: newUser._id}),
+var running = new models.skill({name: "Running", exp: 18, level: 1, percentage: 53, user_id: newUser._id, exp_multi: 3, degr_multi: 0.5, skill_type: "time_spent"}),
+  pushups = new models.skill({name: "Pushups", exp: 31, level: 2, percentage: 30, user_id: newUser._id, exp_multi: 1, degr_multi: 0.5, skill_type: "action"}),
+  hiking = new models.skill({name: "Hiking", exp: 28, level: 2, percentage: 15, user_id: newUser._id, exp_multi: 3, degr_multi: 0.5, skill_type: "time_spent"}),
   physicalSkillset = new models.skillset({name: "Physical Skillset", user_id: newUser._id, skills: [running._id, pushups._id, hiking._id]});
 
-var meditation = new models.skill({name: "Meditation", exp: 29, level: 2, percentage: 20, user_id: newUser._id}),
-  coding = new models.skill({name: "Coding", exp: 46, level: 3, percentage: 4, user_id: newUser._id}),
-  breathing = new models.skill({name: "Cleansing Breath", exp: 23, level: 1, percentage: 86, user_id: newUser._id}),
+var meditation = new models.skill({name: "Meditation", exp: 29, level: 2, percentage: 20, user_id: newUser._id, exp_multi: 3, degr_multi: 0.5, skill_type: "time_spent"}),
+  coding = new models.skill({name: "Coding", exp: 46, level: 3, percentage: 4, user_id: newUser._id, exp_multi: 3, degr_multi: 0.5, skill_type: "time_spent"}),
+  breathing = new models.skill({name: "Cleansing Breath", exp: 23, level: 1, percentage: 86, user_id: newUser._id, exp_multi: 1, degr_multi: 0.5, skill_type: "action"}),
   mentalSkillset = new models.skillset({name: "Mental Skillset", skills: [meditation._id, coding._id, breathing._id], user_id: newUser._id});
 
 var physicalEvents = [
