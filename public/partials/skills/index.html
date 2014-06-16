@@ -22,10 +22,10 @@
       </td>
       <td ng-hide="skill.skill_type != 'action'"><button class="btn btn-success" ng-click="increment(skill)">Action complete</button></td>
       <td ng-hide="skill.skill_type == 'action'">
-        <form class="form-horizontal" ng-submit="spendTime(skill, timeSpent)" novalidate>
+        <form class="form-horizontal" ng-submit="spendTime(skill)" novalidate name="timeSpentForm">
           <div class="form-group">
             <div class="col-xs-3">
-              <input type="number" ng-model="timeSpent" class="form-control" placeholder="Hours">
+              <input type="number" ng-model="skill.time_spent" class="form-control" placeholder="Hours">
             </div>
             <input type="submit" value="Submit" class="btn btn-success">
           </div>
