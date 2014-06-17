@@ -171,6 +171,38 @@ lexControllers.controller('ReportExpCtrl', ['$scope', '$rootScope', '$location',
   };
 }]);
 
-lexControllers.controller('ReportFreqCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Skillset', function($scope, $rootScope, $location, $routeParams, Skillset){
-  
+lexControllers.controller('ReportFreqCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Skillset', "FreqReport", function($scope, $rootScope, $location, $routeParams, Skillset, FreqReport){
+  $('#reportsNav').addClass('active');
+  $('#skillsetsNav').removeClass('active');
+
+  $scope.hasRan = false;
+  $scope.hasCustomRange = false;
+  $scope.skillsets = Skillset.query();
+  $scope.report = {};
+
+  $('.datepicker').datepicker()
+    .on("changeDate", function(e){
+      $scope.report[e.target.id] = Date.parse(e.date);
+    });
+
+  $scope.runReport = function(report){
+    console.log(report);
+    $scope.eventsData = FreqReport.query({skillsetId: report.skillsetId, range: report.range, startTime: report.startTime, endTime: report.endTime});
+    $scope.reportConfig.$setPristine();
+    $scope.report = {};
+    $scope.hasRan = true;
+
+  };
+
+  $scope.configReport = function(){
+    $scope.hasRan = false;
+  };
+
+  $scope.customRange = function(range){
+    if (range == "customRange") {
+      $scope.hasCustomRange = true;
+    } else {
+      $scope.hasCustomRange = false;
+    }
+  };
 }]);

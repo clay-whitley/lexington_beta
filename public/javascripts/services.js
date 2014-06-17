@@ -35,6 +35,12 @@ lexServices.factory('Report', ['$resource',
     });
   }]);
 
+lexServices.factory('FreqReport', ['$resource', function($resource){
+  return $resource('reports/frequency.json', {}, {
+    update: {method:'PUT'}
+  });
+}]);
+
 angular.module('d3', [])
   .factory('d3Service', ['$document', '$window', '$q', '$rootScope',
   function($document, $window, $q, $rootScope) {
