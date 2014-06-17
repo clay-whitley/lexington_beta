@@ -126,3 +126,88 @@ lexDirectives.directive('d3LineChart', ['d3Service', '$window', function(d3Servi
         });
       }};
   }]);
+
+lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Service, $window) {
+    return {
+      restrict: 'EA',
+      scope: {
+        data: '='
+      },
+      link: function(scope, element, attrs) {
+        d3Service.d3().then(function(d3) {
+          var margin = parseInt(attrs.margin) || 40;
+          var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S.%L%Z").parse;
+
+          var svg = d3.select(element[0])
+            .append('svg')
+            .style('width', '100%')
+            .attr('height', 500)
+            .append("g")
+            .attr("transform", "translate(" + margin + "," + margin + ")");
+
+          
+
+          // Browser onresize event
+          window.onresize = function() {
+            scope.$apply();
+          };
+
+          // Watch for resize event
+          scope.$watch(function() {
+            return angular.element($window)[0].innerWidth;
+          }, function() {
+            scope.render(scope.data);
+          });
+
+          scope.$watch('data', function(newVals, oldVals) {
+            return scope.render(newVals);
+          }, true);
+
+          scope.render = function(data) {
+            console.log('rendering D3');
+            // our custom d3 code
+            // remove all previous items before render
+            svg.selectAll('*').remove();
+
+            // If we don't pass any data, return out of the element
+            if (!data) return;
+
+            var width = d3.select(element[0])[0][0].offsetWidth - (margin * 2),
+                height = 500 - (margin * 2);
+
+            var x = d3.time.scale()
+                .domain(d3.extent(data, function(d) { return d.timestamp; }))
+                .range([0, width]);
+
+            var y = d3.scale.linear()
+                .domain([0,50])
+                .range([height, 0]);
+
+            var color = d3.scale.category10();
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Actions");
+          };
+        });
+      }};
+  }]);

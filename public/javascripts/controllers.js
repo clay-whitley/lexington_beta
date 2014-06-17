@@ -170,3 +170,7 @@ lexControllers.controller('ReportExpCtrl', ['$scope', '$rootScope', '$location',
     }
   };
 }]);
+
+lexControllers.controller('ReportFreqCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Skillset', function($scope, $rootScope, $location, $routeParams, Skillset){
+  
+}]);
