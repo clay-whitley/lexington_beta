@@ -145,7 +145,6 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
             .append("g")
             .attr("transform", "translate(" + margin + "," + margin + ")");
 
-          
 
           // Browser onresize event
           window.onresize = function() {
@@ -172,6 +171,13 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
             // If we don't pass any data, return out of the element
             if (!data) return;
 
+            scope.data.forEach(function(d) {
+              if (typeof d.timestamp == "string"){
+                var tempDate = parseDate(d.timestamp.substring(0, d.timestamp.length-1)+"+0000");
+                d.timestamp = new Date(tempDate.toDateString());
+              }
+            });
+
             var width = d3.select(element[0])[0][0].offsetWidth - (margin * 2),
                 height = 500 - (margin * 2);
 
@@ -184,6 +190,14 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
                 .range([height, 0]);
 
             var color = d3.scale.category10();
+
+            var nest = d3.nest()
+            .key(function(d) { return d.timestamp })
+            .entries(data);
+
+            var barWidth = width / nest.length;
+
+            console.log(nest);
 
             var xAxis = d3.svg.axis()
                 .scale(x)
@@ -207,6 +221,17 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("Actions");
+
+            var freqBar = svg.selectAll(".frequency")
+                .data(nest)
+              .enter().append("g")
+                .attr("class", "skill")
+                .attr("transform", function(d, i) { return "translate("+x(new Date(nest[i].key))+",0)"; });
+
+            freqBar.append('rect')
+            .attr('width', barWidth - 1)
+            .attr('height', function(d, i){ return y(nest[i].values.length);})
+            .attr('y', function(d, i){ return height - y(nest[i].values.length);});
           };
         });
       }};
