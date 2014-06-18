@@ -178,6 +178,10 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
               }
             });
 
+            var nest = d3.nest()
+            .key(function(d) { return d.timestamp })
+            .entries(data);
+
             var width = d3.select(element[0])[0][0].offsetWidth - (margin * 2),
                 height = 500 - (margin * 2);
 
@@ -186,14 +190,10 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
                 .range([0, width]);
 
             var y = d3.scale.linear()
-                .domain([0,50])
+                .domain(d3.extent(nest, function(d){ return d.values.length }))
                 .range([height, 0]);
 
             var color = d3.scale.category10();
-
-            var nest = d3.nest()
-            .key(function(d) { return d.timestamp })
-            .entries(data);
 
             var barWidth = width / nest.length;
 
@@ -225,13 +225,20 @@ lexDirectives.directive('d3BarChart', ['d3Service', '$window', function(d3Servic
             var freqBar = svg.selectAll(".frequency")
                 .data(nest)
               .enter().append("g")
-                .attr("class", "skill")
+                .attr("class", "frequency")
                 .attr("transform", function(d, i) { return "translate("+x(new Date(nest[i].key))+",0)"; });
 
             freqBar.append('rect')
             .attr('width', barWidth - 1)
-            .attr('height', function(d, i){ return y(nest[i].values.length);})
-            .attr('y', function(d, i){ return height - y(nest[i].values.length);});
+            .attr('height', function(d, i){ return height - y(nest[i].values.length);})
+            .attr('y', function(d, i){ return y(nest[i].values.length);});
+
+            freqBar.append("text")
+            .attr("x", function(d, i) { return x(new Date(nest[i].key)); })
+            .attr("y", function(d, i){ return height - y(nest[i].values.length); })
+            .attr("dy", ".35em")
+            .attr('transform', 'rotate(90)')
+            .text(function(d, i) { return d.values.length; });
           };
         });
       }};
