@@ -172,6 +172,8 @@ lexControllers.controller('ReportExpCtrl', ['$scope', '$rootScope', '$location',
 }]);
 
 lexControllers.controller('ReportFreqCtrl', ['$scope', '$rootScope', '$location', '$routeParams', 'Skillset', "FreqReport", function($scope, $rootScope, $location, $routeParams, Skillset, FreqReport){
+  ensureAuth($location, $rootScope);
+  
   $('#reportsNav').addClass('active');
   $('#skillsetsNav').removeClass('active');
 
